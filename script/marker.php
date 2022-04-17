@@ -19,5 +19,7 @@
     }else if($_GET["action"] == "remove"){
         $req = "DELETE FROM `markers` WHERE addr == \"$loc\"";
         mysqli_query($sqlconn, $req);
+    }else if($_GET["move"]){
+        
     }
 ?>
