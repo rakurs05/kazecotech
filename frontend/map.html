@@ -11,22 +11,28 @@
                     center: [51.16866, 71.47268],
                     zoom: 13
                 });
-
+                // DG.marker([51.16866, 71.47268]).addTo(map).bindPopup("addr");
+                // DG.marker([51.16866, 71.47368]).addTo(map).bindPopup("addr");
+                // DG.marker([51.16866, 71.47468]).addTo(map).bindPopup("addr");
+                // DG.marker([51.16866, 71.47568]).addTo(map).bindPopup("addr");
+                // DG.marker([51.16866, 71.47668]).addTo(map).bindPopup("addr");
                 // DG.marker([54.98, 82.89]).addTo(map).bindPopup('Вы кликнули по мне!');
+
+                // var req = new XMLHttpRequest();
+                // req.onload = ()=>{
+                //     var lines = this.this.responseText.split("\n")
+                //     for (let index = 0; index < lines.length; index++) {
+                //         const element = lines[index].split(" ");
+                //         const addr = element[0];
+                //         const lat = element[1];
+                //         const lng = element[2];
+                //         DG.marker([parseFloat(lat), parseFloat(lng)]).addTo(map).bindPopup(addr);
+                //     }
+                // }
+                // req.open("get", "/script/locget.php?lat=51.16866&lng=71.47268&range-0.002");
+                // req.send();
             });
-            var req = new XMLHttpRequest();
-            req.onload = ()=>{
-                var lines = this.this.responseText.split("\n")
-                for (let index = 0; index < lines.length; index++) {
-                    const element = lines[index].split(" ");
-                    const addr = element[0];
-                    const lat = element[1];
-                    const lng = element[2];
-                    DG.marker([parseFloat(lat), parseFloat(lng)]).addTo(map).bindPopup(addr);
-                }
-            }
-            req.open("get", "/script/locget.php?lat=51.16866&lng=71.47268&range-0.002");
-            req.send();
+            
         </script>
     </head>
     <body>

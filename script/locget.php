@@ -1,23 +1,25 @@
 <?php
     //Production DataBase
-    class PDB extends SQLite3 {
-        function __construct() {
-           $this->open('../kazecotech.db');
-        }
-     }
-    $pdb = new PDB();
-    if(!$pdb) {
-        exit("Failed to open DB");
+    $sqlacc = file("database.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $host = $sqlacc[0];
+    $uname = $sqlacc[1];
+    $password = $sqlacc[2];
+    $dbname = $sqlacc[3];
+    $sqlconn = mysqli_connect($host, $uname, $password, $dbname);
+    $newscount = 0;
+    if(!$sqlconn){
+        echo ("ERROR");
     }
-    $sqlrequest = "SELECT * FROM markers WHERE (lat < (" . $_GET["lat"] . "+" . $_GET["range"] . ") AND lat > (" . $_GET["lat"] . "-" . $_GET["range"] . ") AND lng < (" . $_GET["lng"] . "+" . $_GET["range"] . ") AND lng > (" . $_GET["lng"] . "-" . $_GET["range"] . ")";
-    $query = $pdb->query($sqlrequest);
+
+    $request = "SELECT * FROM markers WHERE (lat < (" . $_GET["lat"] . "+" . $_GET["range"] . ") AND lat > (" . $_GET["lat"] . "-" . $_GET["range"] . ") AND lng < (" . $_GET["lng"] . "+" . $_GET["range"] . ") AND lng > (" . $_GET["lng"] . "-" . $_GET["range"] . ")";
+    $result = mysqli_query($sqlconn, $request);
     // В цикле выведем все полученные данные
-    if(!$query){
-        echo ($_GET["addr"] . " " . $_GET["lat"] . " " . $_GET["lng"]);
+    if (mysqli_num_rows($result) > 0) {
+        // output data of each row
+        while($row = mysqli_fetch_assoc($result)) {
+            echo($row['addr']." ".$row['lat']." ".$row['lng']);
+            // echo "YEP";
+        }
     }
-    while ($array = $query->fetchArray(SQLITE3_ASSOC))
-    {
-      echo($array['addr']." ".$array['lat']." ".$array['lng']);
-    }
-    $pdb->close();
+    mysqli_close($sqlconn);
 ?>
