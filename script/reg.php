@@ -1,5 +1,5 @@
 <?php
-    if($_GET["check"] == "get"){
+    if(isset($_GET["check"])){
         if(!isset($_SESSION["uname"]))
             {echo("NULL");exit();}
     }
@@ -13,10 +13,10 @@
     if(!$sqlconn){
         echo ("ERROR");
     }
-    $uname = $_GET["uname"];
+    $uname = $_GET["username"];
     $pwd_hash = $_GET["password"];
     $email = $_GET["access"];
-    $req = "SELECT COUNT(*) FROM users WHERE username=\"$uname\"";
+    $req = "SELECT COUNT(*) FROM users WHERE name=\"$uname\"";
     $result = mysqli_query($sqlconn, $req);
     if (mysqli_num_rows($result) > 0) {
         // output data of each row
@@ -27,7 +27,7 @@
         echo "0 results (count)";
     }
     if($c == 0){
-        $req = "INSERT INTO `users`(`uname`, `password`, `access`) VALUES (\"$uname\",\"$password\",\'$access\')";
+        $req = "INSERT INTO `users`(`name`, `pwd_hash`, `email`) VALUES (\"$uname\",\"$password\",\"kazenergo@gmail.com\")";
         mysqli_query($sqlconn, $req);
         echo "You are regitrated successfully!";
     }else{
